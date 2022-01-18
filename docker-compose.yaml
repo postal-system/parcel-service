@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  postgresql:
+    restart: always
+    image: 'postgres:latest'
+    container_name: parcel_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mcpmwC8gGwVKr4Q9xCKZEzEgS
+      - POSTGRES_DB=parcels
+    ports:
+      - '5438:5432'
+
+#  parcel_service_app:
+#    image: 'application:latest'
+#    build:
+#      context: .
+#    container_name: parcel_service_app
+#    depends_on:
+#      - persons_db
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://persons_db:5432/parcels
+#      - SPRING_DATASOURCE_USERNAME=postgres
+#      - SPRING_DATASOURCE_PASSWORD=mcpmwC8gGwVKr4Q9xCKZEzEgS
+#      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#    ports:
+#      - 8087:8087
