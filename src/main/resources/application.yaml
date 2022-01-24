@@ -1,14 +1,7 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5438/parcels
-    username: postgres
-    password: mcpmwC8gGwVKr4Q9xCKZEzEgS
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+  profiles:
+    active: local
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.yaml
-    enabled: true
-server:
-  port: 8087
+    change-log: classpath:db\changelog\db.changelog-master.yaml
+  jpa:
+    show-sql: true
