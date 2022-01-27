@@ -10,7 +10,7 @@ public class ParcelDto {
     private UUID id;
     private String sender;
     private String receiver;
-    private Integer postOfficeId;
     private Instant timestamp;
+    private Integer postOfficeId;
     private RawParcelDto rawParcelDto;
 }

@@ -3,5 +3,8 @@ spring:
     url: jdbc:postgresql://130.193.56.118:5432/pejt_parcel
     username: postgres
     password: mcpmwC8gGwVKr4Q9xCKZEzEgS
+    hikari:
+      maximum-pool-size: 3
+
 server:
   port: 8087

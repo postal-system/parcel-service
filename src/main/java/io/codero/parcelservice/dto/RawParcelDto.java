@@ -10,7 +10,6 @@ public class RawParcelDto {
     private UUID id;
     private Instant timestamp;
     private Integer idReceiver;
-    private Integer postOfficeReceiverId;
-    private String content;
+    private Integer postOfficeId;
     private String sender;
 }
