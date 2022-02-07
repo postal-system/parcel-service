@@ -181,7 +181,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>io.codero.letterservice.LetterServiceApp</mainClass>
+                            <mainClass>io.codero.parcelservice.ParcelServiceApp</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
