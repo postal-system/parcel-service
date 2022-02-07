@@ -191,4 +191,5 @@ class ParcelControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(listResponseJson));
     }
+
 }

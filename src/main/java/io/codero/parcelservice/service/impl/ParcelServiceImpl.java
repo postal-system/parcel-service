@@ -23,6 +23,7 @@ public class ParcelServiceImpl implements ParcelService {
         if (repository.existsById(parcel.getId())) {
             throw new CastIdAlreadyExistException(String.format("Object with ID: %s already exist, ", parcel.getId()));
         }
+        log.info("save {} to DB", parcel);
         return repository.save(parcel).getId();
     }
 
