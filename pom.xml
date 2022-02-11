@@ -119,13 +119,12 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- try and delete -->
+        <!-- this dependencies already exist into starter, but test can't see it -->
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>kafka</artifactId>

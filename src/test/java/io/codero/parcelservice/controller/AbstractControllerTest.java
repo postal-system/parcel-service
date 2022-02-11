@@ -14,7 +14,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @AutoConfigureMockMvc
 @DirtiesContext
-//@EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
 public abstract class AbstractControllerTest {
     @Container
     private static final PostgreSQLContainer container = new PostgreSQLContainer("postgres:14.1")
