@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/parcel")
+@RequestMapping(value = "/api/parcels")
 public class ParcelController {
     private final ParcelFacade facade;
 

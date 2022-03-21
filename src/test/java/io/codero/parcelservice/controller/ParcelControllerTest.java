@@ -27,13 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EmbeddedKafka(partitions = 1, brokerProperties = {"listeners=PLAINTEXT://localhost:9092", "port=9092"})
 class ParcelControllerTest extends AbstractControllerTest {
 
-    @ClassRule
-    public static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:latest"));
-
     @Autowired
     private MockMvc mvc;
+
     @Autowired
     private ObjectMapper objectMapper;
+
+    private static final String URL = "/api/parcels";
 
     private final UUID id = UUID.randomUUID();
 
@@ -56,7 +56,7 @@ class ParcelControllerTest extends AbstractControllerTest {
         String requestJson = objectMapper.writeValueAsString(getParcelDto());
         String ExpectedJson = objectMapper.writeValueAsString(id);
 
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -69,7 +69,7 @@ class ParcelControllerTest extends AbstractControllerTest {
         String requestJson = objectMapper.writeValueAsString(getParcelDto());
         String ExpectedJson = objectMapper.writeValueAsString(id);
 
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -77,7 +77,7 @@ class ParcelControllerTest extends AbstractControllerTest {
                 .andExpect(content().json(ExpectedJson));
 
 
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -88,20 +88,20 @@ class ParcelControllerTest extends AbstractControllerTest {
     void shouldReturnDtoEqualsDtoExpected() throws Exception {
         String jsonDto = objectMapper.writeValueAsString(getParcelDto());
 
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(jsonDto)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk());
 
-        mvc.perform(get("/parcel/" + id))
+        mvc.perform(get(URL +"/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonDto));
     }
 
     @Test
     void shouldReturn404ifNotExists() throws Exception {
-        mvc.perform(get("/parcel/" + id))
+        mvc.perform(get(URL +"/" + id))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -109,7 +109,7 @@ class ParcelControllerTest extends AbstractControllerTest {
     @Test
     void shouldObjectUpdatedIfAllRight() throws Exception {
         String jsonDto = objectMapper.writeValueAsString(getParcelDto());
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(jsonDto)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -119,12 +119,12 @@ class ParcelControllerTest extends AbstractControllerTest {
         newDto.setReceiver("new receiver");
         String newJsonDto = objectMapper.writeValueAsString(newDto);
 
-        mvc.perform(put("/parcel")
+        mvc.perform(put(URL)
                         .content(newJsonDto)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        mvc.perform(get("/parcel/" + id))
+        mvc.perform(get(URL +"/" + id))
                 .andExpect(status().isOk())
                 .andExpect(content().json(newJsonDto));
     }
@@ -135,7 +135,7 @@ class ParcelControllerTest extends AbstractControllerTest {
         newDto.setReceiver("new receiver");
         String newJsonDto = objectMapper.writeValueAsString(newDto);
 
-        mvc.perform(put("/parcel")
+        mvc.perform(put(URL)
                         .content(newJsonDto)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -146,17 +146,17 @@ class ParcelControllerTest extends AbstractControllerTest {
         String requestJson = objectMapper.writeValueAsString(getParcelDto());
         String ExpectedJson = objectMapper.writeValueAsString(id);
 
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().json(ExpectedJson));
 
-        mvc.perform(delete("/parcel" + "/" + id))
+        mvc.perform(delete(URL + "/" + id))
                 .andExpect(status().isOk());
 
-        mvc.perform(get("/parcel/" + id))
+        mvc.perform(get(URL +"/" + id))
                 .andExpect(status().isNotFound());
     }
 
@@ -165,19 +165,19 @@ class ParcelControllerTest extends AbstractControllerTest {
         String requestJson = objectMapper.writeValueAsString(getParcelDto());
         String ExpectedJson = objectMapper.writeValueAsString(id);
 
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().json(ExpectedJson));
 
-        mvc.perform(delete("/parcel"))
+        mvc.perform(delete(URL))
                 .andExpect(status().isOk());
 
         String emptyListJson = objectMapper.writeValueAsString(List.<ParcelDto>of());
 
-        mvc.perform(get("/parcel"))
+        mvc.perform(get(URL))
                 .andExpect(status().isOk())
                 .andExpect(content().json(emptyListJson));
     }
@@ -187,7 +187,7 @@ class ParcelControllerTest extends AbstractControllerTest {
         String requestJson = objectMapper.writeValueAsString(getParcelDto());
         String ExpectedJson = objectMapper.writeValueAsString(id);
 
-        mvc.perform(post("/parcel")
+        mvc.perform(post(URL)
                         .content(requestJson)
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -196,7 +196,7 @@ class ParcelControllerTest extends AbstractControllerTest {
 
         String listResponseJson = objectMapper.writeValueAsString(List.of(getParcelDto()));
 
-        mvc.perform(get("/parcel"))
+        mvc.perform(get(URL))
                 .andExpect(status().isOk())
                 .andExpect(content().json(listResponseJson));
     }
