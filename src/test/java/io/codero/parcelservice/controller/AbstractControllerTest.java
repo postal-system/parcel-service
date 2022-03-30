@@ -6,17 +6,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
 @Testcontainers
-@AutoConfigureMockMvc
-@DirtiesContext
 public abstract class AbstractControllerTest {
     @Container
-    private static final PostgreSQLContainer container = new PostgreSQLContainer("postgres:14.1")
+    private static final PostgreSQLContainer container = new PostgreSQLContainer("postgres:latest")
             .withDatabaseName("test_container")
             .withUsername("test")
             .withPassword("test");
