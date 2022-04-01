@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5438/pejt_parcel
+    username: postgres
+    password: mcpmwC8gGwVKr4Q9xCKZEzEgS
+    hikari:
+      maximum-pool-size: 3
+  jpa:
+    show-sql: true
+server:
+  port: 8087
+interceptor:
+  kafka:
+    bootstrap: "localhost:9092"
+    topic: "url"
