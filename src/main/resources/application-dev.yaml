@@ -1,13 +1,13 @@
 spring:
   datasource:
-    url: jdbc:postgresql://130.193.56.118:5432/pejt_parcel
+    url: jdbc:postgresql://192.168.1.1:5432/pejt_parcel
     username: postgres
-    password: mcpmwC8gGwVKr4Q9xCKZEzEgS
+    password: 1234
     hikari:
       maximum-pool-size: 3
 server:
   port: 8087
 interceptor:
   kafka:
-    bootstrap: "130.193.56.118:9092"
+    bootstrap: "192.168.1.1:9092"
     topic: "url"
