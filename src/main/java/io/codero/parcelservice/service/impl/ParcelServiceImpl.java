@@ -19,9 +19,9 @@ public class ParcelServiceImpl implements ParcelService {
     private final ParcelRepository repository;
 
     @Override
-    public UUID save(Parcel parcel) {
+    public synchronized UUID save(Parcel parcel) {
         if (repository.existsById(parcel.getId())) {
-            throw new IdAlreadyExistException(String.format("Object with ID: %s already exist, ", parcel.getId()));
+            throw new IdAlreadyExistException(String.format("Parcel with ID: %s already exist, ", parcel.getId()));
         }
         log.info("save {} to DB", parcel);
         return repository.save(parcel).getId();
@@ -29,7 +29,7 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public Parcel getById(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new NotFoundException("Not found by ID: " + id));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("Not found be ID: " + id));
     }
 
     @Override
@@ -38,9 +38,9 @@ public class ParcelServiceImpl implements ParcelService {
     }
 
     @Override
-    public void update(Parcel parcel) {
+    public synchronized void update(Parcel parcel) {
         if (!repository.existsById(parcel.getId())) {
-            throw new NotFoundException(String.format("Object with ID: %s cannot by update", parcel.getId()));
+            throw new NotFoundException(String.format("Parcel with ID: %s cannot be update", parcel.getId()));
         }
         repository.save(parcel);
     }
