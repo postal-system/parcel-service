@@ -1,8 +1,8 @@
 package io.codero.parcelservice.service.impl;
 
 import io.codero.parcelservice.entity.Parcel;
-import io.codero.parcelservice.exception.CastIdAlreadyExistException;
-import io.codero.parcelservice.exception.CastNotFoundException;
+import io.codero.parcelservice.exception.IdAlreadyExistException;
+import io.codero.parcelservice.exception.NotFoundException;
 import io.codero.parcelservice.repository.ParcelRepository;
 import io.codero.parcelservice.service.ParcelService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class ParcelServiceImpl implements ParcelService {
     @Override
     public UUID save(Parcel parcel) {
         if (repository.existsById(parcel.getId())) {
-            throw new CastIdAlreadyExistException(String.format("Object with ID: %s already exist, ", parcel.getId()));
+            throw new IdAlreadyExistException(String.format("Object with ID: %s already exist, ", parcel.getId()));
         }
         log.info("save {} to DB", parcel);
         return repository.save(parcel).getId();
@@ -29,7 +29,7 @@ public class ParcelServiceImpl implements ParcelService {
 
     @Override
     public Parcel getById(UUID id) {
-        return repository.findById(id).orElseThrow(() -> new CastNotFoundException("Not found by ID: " + id));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("Not found by ID: " + id));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ParcelServiceImpl implements ParcelService {
     @Override
     public void update(Parcel parcel) {
         if (!repository.existsById(parcel.getId())) {
-            throw new CastNotFoundException(String.format("Object with ID: %s cannot by update", parcel.getId()));
+            throw new NotFoundException(String.format("Object with ID: %s cannot by update", parcel.getId()));
         }
         repository.save(parcel);
     }
