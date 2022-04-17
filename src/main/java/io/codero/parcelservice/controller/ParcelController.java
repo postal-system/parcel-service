@@ -1,18 +1,9 @@
 package io.codero.parcelservice.controller;
 
-
 import io.codero.parcelservice.dto.ParcelDto;
 import io.codero.parcelservice.facade.ParcelFacade;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,13 +20,13 @@ public class ParcelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ParcelDto> getById(@PathVariable("id") UUID id) {
-        return ResponseEntity.ok().body(facade.getById(id));
+    public ParcelDto getById(@PathVariable("id") UUID id) {
+        return facade.getById(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<ParcelDto>> getAll() {
-        return ResponseEntity.ok().body(facade.getAll());
+    public List<ParcelDto> getAll() {
+        return facade.getAll();
     }
 
     @PutMapping
